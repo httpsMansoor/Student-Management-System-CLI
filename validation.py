@@ -31,11 +31,6 @@ def validate_input(column_name, user_input, expected_type):
                 if len(str(value)) > 10:
                     return False, None, "Roll Number cannot be more than 10 digits. Please try again."
             
-            # Additional validation for grades as int
-            elif column_name.lower() == 'grades':
-                if value < 0 or value > 100:
-                    return False, None, "Grades must be between 0 and 100. Please try again."
-            
             return True, value, None
         
         elif expected_type == 'float':
@@ -133,6 +128,12 @@ def validate_input(column_name, user_input, expected_type):
                 if len(user_input) > 10:
                     return False, None, "Class name cannot be more than 10 characters. Please try again."
             
+            elif column_name.lower() == 'grades':
+                valid_grades = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'F']
+                if user_input.upper() not in valid_grades:
+                    return False, None, f"Invalid grade. Please enter one of these: {', '.join(valid_grades)}"
+                return True, user_input.upper(), None
+            
             return True, str(user_input), None
         
         else:
@@ -144,7 +145,13 @@ def validate_input(column_name, user_input, expected_type):
 def get_valid_input(column_name, expected_type):
     """Helper function to get valid input from the user based on the expected type."""
     while True:
-        user_input = input(f"Enter {column_name}: ").strip()
+        # Show available options for grades
+        if column_name.lower() == 'grades' or column_name.lower().startswith('new grades'):
+            prompt = f"Enter {column_name} (A+, A, A-, B+, B, B-, C+, C, C-, F): "
+        else:
+            prompt = f"Enter {column_name}: "
+            
+        user_input = input(prompt).strip()
         is_valid, value, error_message = validate_input(column_name, user_input, expected_type)
         
         if is_valid:

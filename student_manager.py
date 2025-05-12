@@ -42,7 +42,7 @@ class StudentManager:
                         'Address': 'str',
                         'Class': 'str',
                         'Roll Number': 'int',
-                        'Grades': 'int'
+                        'Grades': 'str'
                     }
                     
                     # Initialize column types
@@ -594,7 +594,7 @@ class StudentManager:
             'Phone': 'str',
             'Address': 'str',
             'Class': 'str',
-            'Grades': 'int'
+            'Grades': 'str'
         }
         
         print("Choose column setup:")
