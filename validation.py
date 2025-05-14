@@ -112,11 +112,10 @@ def validate_input(column_name, user_input, expected_type):
                     return False, None, "Phone number cannot be more than 15 digits. Please try again."
             
             elif column_name.lower() == 'address':
-                if len(user_input) < 10:
-                    return False, None, "Address must be at least 10 characters long. Please provide a complete address."
+                if len(user_input) < 5:
+                    return False, None, "Address must be at least 5 characters long. Please provide a complete address."
                 # Check if address contains at least one number and one letter
-                if not any(c.isdigit() for c in user_input):
-                    return False, None, "Address must contain at least one number. Please try again."
+                
                 if not any(c.isalpha() for c in user_input):
                     return False, None, "Address must contain at least one letter. Please try again."
             
